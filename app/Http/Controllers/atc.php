@@ -18,27 +18,27 @@ class atc extends Controller
         return response()->json($atc);
     }
 
-   
 
-    public function store(Request $request, $vid )
+
+    public function store($vid)
     {
         DB::table('atc')->insert([
             'vid' => $vid,
-            'callsign' => $request->callsign ?? "TEST",
-            'frequency' => $request->frequency ?? "TEST",
-            'position' => $request->facility ?? "TEST",
+            'callsign' => "TEST",
+            'position' => "TEST",
+            'frequency' => "TEST",
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         return response()->json([
             'vid' => $vid,
-            'callsign' => $request->callsign,
-            'position' => $request->position,
-            'frequency' => $request->frequency,
+            'callsign' => "TEST",
+            'position' => "TEST",
+            'frequency' => "TEST",
         ]);
-    } 
-    
+    }
+
     public function delect($vid, $id)
     {
         DB::table('atc')->where('vid', $vid)->where('id', $id)->delete();
