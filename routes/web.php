@@ -29,7 +29,11 @@ Route::get('/', function () {
 });
 
 Route::get('/login',  function () {
-    return view('login');
+    $data = [
+        "name" => "Login the website",
+        "description" => "Login page the website in AlexCaussades website",
+    ];
+    return view('login', ["data" => $data]);
 });
 
 Route::post('/login', [LoginController::class, 'authenticate'], function (Request $request) {
@@ -44,7 +48,11 @@ Route::post('/login', [LoginController::class, 'authenticate'], function (Reques
 })->name('login');
 
 Route::get('/register', function () {
-    return view('register');
+    $data = [
+        "name" => "Registered the website",
+        "description" => "register page the website for the user to register in AlexCaussades website",
+    ];
+      return view('register', ['data' => $data]);
 });
 
 Route::post('/creat_users', [LoginController::class, 'register'], function (Request $request) {
@@ -56,7 +64,7 @@ Route::post('/creat_users', [LoginController::class, 'register'], function (Requ
     }
 
     return view('login');
-})->name('register');
+});
 
 Route::get('/logout', [LoginController::class, "logout"], function () {
     return view('login');

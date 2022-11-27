@@ -1,63 +1,33 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends("layouts.gen-header")
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
 
-    <title>AlexCaussades Tech</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Styles -->
-
-
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
-</head>
-<div class="container">
-    <form action="creat_users" method="post" class="mt-2">
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <input type="email" name="email" id="form2Example1" class="form-control" />
-            <label class="form-label" for="form2Example1">Email address</label>
-        </div>
-
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <input type="password" name="password" id="form2Example2" class="form-control" />
-            <label class="form-label" for="form2Example2">Password</label>
-        </div>
-
-        <!-- 2 column grid layout for inline styling -->
-        <div class="row mb-4">
-            <div class="col d-flex justify-content-center">
-                <!-- Checkbox -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-                    <label class="form-check-label" for="form2Example31"> Remember me </label>
-                </div>
-            </div>
-
-            <div class="col">
-                <!-- Simple link -->
-                <a href="#!">Forgot password?</a>
-            </div>
-        </div>
+<!-- Default form login -->
+<div class="container mt-5 align-self-center">
+    <form class="border border-light p-5 bg-dark bg-opacity-75 text-white shadow-lg p-5 mb-5 rounded" action="creat_users" method="post">
         @csrf
-         
-        <!-- Equivalent to... -->
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        <p class="h4 mb-4 text-center"><i class="bi bi-arrow-return-right"></i> Sign Up <i class="bi bi-arrow-return-left"></i></p>
 
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+        <div class="form-group">
+            <label for="" class="form-label fs-8 text-white fw-bold"><i class="bi bi-person-badge-fill"></i> Username :</label>
+            <input type="text" name="username" id="defaultLoginFormEmail" class="form-control mb-4 rounded-5" placeholder="Your Username">
+        </div>
 
-        <!-- Register buttons -->
+        <!-- Email -->
+        <div class="form-group">
+            <label for="" class="form-label fs-8 text-white fw-bold"><i class="bi bi-person-circle"></i> Login :</label>
+            <input type="email" name="email" id="defaultLoginFormEmail" class="form-control mb-4 rounded-5" placeholder="Your Login">
+        </div>
+
+        <div class="form-group">
+            <!-- Password -->
+            <label for="" class="form-label fs-8 text-white fw-bold"><i class="bi bi-fingerprint"></i> Password :</label>
+            <input type="password" name="password" id="defaultLoginFormEmail" class="form-control mb-4 rounded-5" placeholder="Your Password">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-success text-center text-capitalize mx-2"><i class="bi bi-sign-turn-slight-right-fill fs-5"></i> create me !</button>
+        </div>
     </form>
 </div>
+
+@endsection
