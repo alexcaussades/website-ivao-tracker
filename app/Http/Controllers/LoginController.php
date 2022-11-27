@@ -24,6 +24,8 @@ class LoginController extends Controller
             session(['email' => $credentials['email']]);
             session(["admin"=> DB::table('users')->where('email', $credentials['email'])->value('admin')]);
             session(["level"=> DB::table('users')->where('email', $credentials['email'])->value('level')]);
+            session(["vid"=> DB::table('users')->where('email', $credentials['email'])->value('vid')]);
+            session(["name"=> DB::table('users')->where('email', $credentials['email'])->value('name')]);
             return redirect()->intended('dashboard');
         }
 
@@ -54,6 +56,10 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $hashPassword,
             'remember_token' => $creatToken,
+            'vid' => null,
+            'admin' => 0,
+            'level' => 1,
+            'created_at' => now(),
         ]);
 
         if (Auth::attempt($credentials)) {

@@ -11,6 +11,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\friendsController;
 use App\Http\Controllers\PasswordController;
 
+use function Termwind\render;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,23 +36,27 @@ Route::post('/login', [LoginController::class, 'authenticate'], function (Reques
     $token = $request->session()->token();
     $tokencsrf = csrf_token();
 
-    if($token != $tokencsrf){
+    if ($token != $tokencsrf) {
         return redirect()->intended('login');
     }
-    
+
     return view('dashboard');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('register');
 });
 
 Route::post('/creat_users', [LoginController::class, 'register'], function (Request $request) {
     $token = $request->session()->token();
     $tokencsrf = csrf_token();
 
-    if($token != $tokencsrf){
+    if ($token != $tokencsrf) {
         return redirect()->intended('login');
     }
 
     return view('login');
-});
+})->name('register');
 
 Route::get('/logout', [LoginController::class, "logout"], function () {
     return view('login');
@@ -74,13 +80,6 @@ Route::prefix('friends')->group(function () {
     route::get('remove/{vid}/{vid_friend}', [friendsController::class, 'removeFriends']);
     route::get('get/{vid}', [friendsController::class, 'getFriends']);
 });
-
-Route::prefix("auth")->group(function () {
-    route::get('login', [LoginController::class, 'login']);
-    route::get('logout', [LoginController::class, 'logout']);
-    route::get('register', [LoginController::class, 'register']);
-});
-
 
 
 // route pour la protection return 404 si pas connecté
