@@ -66,8 +66,8 @@
                 </a>
             </div>
             <div class="card card-body">
-                <a href="#" class="text-decoration-none text-dark">
-                    <div class=" d-flex justify-content-center align-items-center"><i class="bi bi-shield-fill-check fs-2 text-danger mx-2"></i>Add / Remove Administrteurs </div>
+                <a href="admin/gestion_adminstrateurs" class="text-decoration-none text-dark">
+                    <div class=" d-flex justify-content-center align-items-center text-success"><i class="bi bi-shield-fill-check fs-2 text-danger mx-2"></i>Add / Remove Administrteurs </div>
                 </a>
             </div>
             <div class="card card-body">

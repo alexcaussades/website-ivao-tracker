@@ -9,6 +9,7 @@ use Database\Seeders\atc as SeedersAtc;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\friendsController;
+use App\Http\Controllers\gestion_adminController;
 use App\Http\Controllers\PasswordController;
 
 use function Termwind\render;
@@ -45,14 +46,14 @@ Route::post('/login', [LoginController::class, 'authenticate'], function (Reques
     }
 
     return view('dashboard');
-})->name('login');
+});
 
 Route::get('/register', function () {
     $data = [
         "name" => "Registered the website",
         "description" => "register page the website for the user to register in AlexCaussades website",
     ];
-      return view('register', ['data' => $data]);
+    return view('register', ['data' => $data]);
 });
 
 Route::post('/creat_users', [LoginController::class, 'register'], function (Request $request) {
@@ -75,6 +76,27 @@ Route::get('/dashboard', function () {
     $data = Session::all();
     return view('dashboard', ['data' => $data]);
 })->middleware('auth.basic');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/gestion_adminstrateurs', [gestion_adminController::class, 'index'], function () {
+        $data = Session::all();
+        if ($data['admin'] == 2) {
+            return view('gestion_adminstrateurs', gestion_adminController::class, 'index');
+        }
+        return abort(401);
+    })->middleware('auth.basic');
+
+    // route get gestion admin avec id
+    Route::get('/gestion_adminstrateurs_users', [gestion_adminController::class, 'get_id'], function () {
+        $data = Session::all();
+        if ($data['admin'] == 2) {
+            return view('gestion_adminstrateurs_users', gestion_adminController::class, 'get_id');
+        }
+        return abort(401);
+    })->middleware('auth.basic');
+
+});
+
 
 Route::prefix('atc')->group(function () {
     route::get('/', [atc::class, 'index']);

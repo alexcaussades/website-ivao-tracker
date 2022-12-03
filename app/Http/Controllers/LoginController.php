@@ -18,9 +18,14 @@ class LoginController extends Controller
         $hashPassword = DB::table('users')->where('email', $credentials['email'])->value('password');
         $checkPassword = PasswordController::checkPassword($credentials['password'], $hashPassword);
         
-
-        if (Auth::attempt($credentials) && $checkPassword) {
+        if (Auth::attempt($credentials) && $checkPassword == true) {
             $request->session()->regenerate();
+            DB::table('logs')->insert([
+                'id_admin' => null,
+                'id_user' => DB::table('users')->where('email', $request->email)->value('id'),
+                'action' => 'Login',
+                'date' => now(),
+            ]);    
             session(['email' => $credentials['email']]);
             session(["admin"=> DB::table('users')->where('email', $credentials['email'])->value('admin')]);
             session(["level"=> DB::table('users')->where('email', $credentials['email'])->value('level')]);
@@ -29,6 +34,8 @@ class LoginController extends Controller
             return redirect()->intended('dashboard');
         }
 
+
+
         return redirect()->intended('login');
 
     }
@@ -36,6 +43,12 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+        DB::table('logs')->insert([
+            'id_admin' => null,
+            'id_user' => DB::table('users')->where('email', session("email"))->value('id'),
+            'action' => 'Log-out',
+            'date' => now(),
+        ]);  
         return redirect()->intended('login');
     }
 
@@ -64,9 +77,20 @@ class LoginController extends Controller
             'created_at' => now(),
         ]);
 
-        if (Auth::attempt($credentials)) {
-            //session is started
+        DB::table('logs')->insert([
+            'id_admin' => null,
+            'id_user' => DB::table('users')->where('email', $request->email)->value('id'),
+            'action' => 'Register',
+            'date' => now(),
+        ]);
 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            session(['email' => $credentials['email']]);
+            session(["admin"=> DB::table('users')->where('email', $credentials['email'])->value('admin')]);
+            session(["level"=> DB::table('users')->where('email', $credentials['email'])->value('level')]);
+            session(["vid"=> DB::table('users')->where('email', $credentials['email'])->value('vid')]);
+            session(["name"=> DB::table('users')->where('email', $credentials['email'])->value('name')]);
             return redirect()->intended('dashboard');
         }
 

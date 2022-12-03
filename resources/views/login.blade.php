@@ -21,8 +21,8 @@
         </div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-outline-success text-center text-capitalize mx-2"><i class="bi bi-sign-turn-slight-right-fill fs-5"></i> Verify me !</button>
-            <a href="./register" class="btn btn-outline-info text-center text-capitalize mx-2"><i class="bi bi-person-fill-add fs-5"></i> Sign Up !</a>
-            <a href="" class="btn btn-outline-warning text-center text-capitalize"><i class="bi bi-shield-lock fs-5"></i> Forgot Password !</a>
+            <!-- <a href="./register" class="btn btn-outline-info text-center text-capitalize mx-2"><i class="bi bi-person-fill-add fs-5"></i> Sign Up !</a>
+            <a href="" class="btn btn-outline-warning text-center text-capitalize"><i class="bi bi-shield-lock fs-5"></i> Forgot Password !</a> -->
         </div>
     </form>
 </div>
