@@ -34,6 +34,12 @@ Route::get('/login',  function () {
         "name" => "Login the website",
         "description" => "Login page the website in AlexCaussades website",
     ];
+    if (Auth()->user()) {
+        return redirect()->intended('dashboard');
+    } else {
+        return view('login', ['data' => $data]);
+    }
+
     return view('login', ["data" => $data]);
 });
 
@@ -87,7 +93,7 @@ Route::prefix('admin')->group(function () {
     })->middleware('auth.basic');
 
     // route get gestion admin avec id
-    Route::get('/gestion_adminstrateurs_users', [gestion_adminController::class, 'get_id'], function () {
+    Route::get('/gestion_adminstrateurs_users', [gestion_adminController::class, 'get_id'], function (Request $request) {
         $data = Session::all();
         if ($data['admin'] == 2) {
             return view('gestion_adminstrateurs_users', gestion_adminController::class, 'get_id');
@@ -95,6 +101,15 @@ Route::prefix('admin')->group(function () {
         return abort(401);
     })->middleware('auth.basic');
 
+    Route::post('/gestion_adm_rm', [gestion_adminController::class, "update_admins"], function (Request $request) {
+        $token = $request->session()->token();
+        $tokencsrf = csrf_token();
+        if ($token != $tokencsrf) {
+            return redirect()->intended('login');
+        }
+        
+        return view('gestion_adm_rm', [gestion_adminController::class, "update_admins"]);
+    })->middleware('auth.basic');
 });
 
 

@@ -9,7 +9,7 @@
 
         <div class="card text-white bg-dark">
             <div class="card-body">
-                <form action="/gestion_adminstrateurs_users" method="get">
+                <form action="/admin/gestion_adminstrateurs_users" method="get">
                     <div class="form-group">
                         <label for="">ADD OR REMOVE ADMIN</label>
                         <select class="form-control" name="id">

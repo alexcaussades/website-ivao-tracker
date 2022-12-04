@@ -8,12 +8,12 @@
         </div>
         @include("partials.nav-auth-dash")
     </div>
-    <div class="card card-header">
-        <h1>Welcome {{($data["name"])}}</h1>
-        @if (session('admin') == 2)
+    <div class="card card-header ">
+        <h1>Welcome {{auth()->user()->name}}</h1>
+        @if (auth()->user()->admin == 2)
         <div>Session Admin: <i class="bi bi-check-circle-fill text-success"></i></div>
         @endif
-        @if (session('admin') == 1)
+        @if (auth()->user()->admin == 1)
         <div>Session admin: <i class="bi bi-check-circle-fill text-warning"></i></div>
 
         @endif
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    @if (session('admin') <= 2 && session('admin')>= 1)
+    @if (auth()->user()->admin <= 2 && auth()->user()->admin >= 1)
         <hr>
         <h2>Moderateur</h2>
         <div class="col mt-2 gridUsers">
@@ -51,7 +51,7 @@
         </div>
         @endif
 
-        @if (session('admin') == 2)
+        @if (auth()->user()->admin == 2)
         <hr>
         <h2>Adminstrateur</h2>
         <div class="col mt-2 gridUsers">

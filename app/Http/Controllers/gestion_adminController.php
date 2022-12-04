@@ -34,9 +34,33 @@ class gestion_adminController extends Controller
     }
 
     public function get_id(Request $request)
-    {
-        
+    { 
         $gestion_admin = DB::table('users')->where('id', $request->id)->first();
         return view('gestion_adminstrateurs_users', ['gestion_admin' => $gestion_admin]);
+    }
+
+    public function update_admins(Request $request)
+    {
+       
+        $request->validate([
+            'id' => 'required',
+            'admin' => 'required',
+            'lvl' => 'required',
+        ]);
+
+        DB::table('users')->where('id', $request->id)->update([
+            'level' => $request->lvl,
+            'updated_at' => now(),
+        ]);
+
+        DB::table('logs')->insert([
+            'id_admin' => $request->admin,
+            'id_user' => $request->id,
+            'action' => 'upadte_users',
+            'date' => now(),
+        ]);  
+        
+        
+        return view('gestion_adm_rm');
     }
 }
